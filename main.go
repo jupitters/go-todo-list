@@ -9,8 +9,9 @@ import (
 func main() {
 	app := fiber.New()
 
-	err := app.Listen(":4000")
-	if err != nil {
-		log.Fatal("Erro ao subir o server")
-	}
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello Fiber!")
+	})
+
+	log.Fatal(app.Listen(":4000"))
 }
