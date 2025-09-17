@@ -1,16 +1,17 @@
 import { BASE_URL } from "@/App";
 import { Button, Flex, Input, Spinner } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 
 const TodoForm = () => {
 	const [newTodo, setNewTodo] = useState("");
-	const [isPending, setIsPending] = useState(false);
+
+    const queryClient = useQueryClient();
 
 	const {mutate:createTodo,isPending:isCreating} = useMutation({
         mutationKey:["createTodo"],
-        mutationFn:async (e) => {
+        mutationFn:async (e:React.FormEvent) => {
             e.preventDefault()
             try {
                 const res = await fetch(BASE_URL + `/todos`, {
@@ -28,9 +29,17 @@ const TodoForm = () => {
 
                 setNewTodo("");
                 return data;
-            }catch (err){
-                console.log(err)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            }catch (err:any){
+                throw new Error(err)
             }
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey:["todos"]});
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error:any) => {
+            alert(error.message); 
         }
     });
 
@@ -50,7 +59,7 @@ const TodoForm = () => {
 						transform: "scale(.97)",
 					}}
 				>
-					{isPending ? <Spinner size={"xs"} /> : <IoMdAdd size={30} />}
+					{isCreating ? <Spinner size={"xs"} /> : <IoMdAdd size={30} />}
 				</Button>
 			</Flex>
 		</form>
