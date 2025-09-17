@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/go-chi/cors"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
