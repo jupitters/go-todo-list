@@ -1,4 +1,6 @@
+import { BASE_URL } from "@/App";
 import { Button, Flex, Input, Spinner } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 
@@ -6,10 +8,29 @@ const TodoForm = () => {
 	const [newTodo, setNewTodo] = useState("");
 	const [isPending, setIsPending] = useState(false);
 
-	const createTodo = async (e: React.FormEvent) => {
-		e.preventDefault();
-		alert("Todo added!");
-	};
+	const {mutate:createTodo,isPending:isCreating} = useMutation({
+        mutationKey:["createTodo"],
+        mutationFn:async (e) => {
+            e.preventDefault()
+            try {
+                const res = await fetch(BASE_URL + `/todos`, {
+                    method: "POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body: JSON.stringify({body: newTodo}),
+                })
+                const data = await res.json();
+
+                if(!res.ok){
+                    throw new Error(data.error || "Something went Wrong!")
+                }
+            }catch (err){
+                console.log(err)
+            }
+        }
+    });
+
 	return (
 		<form onSubmit={createTodo}>
 			<Flex gap={2}>
