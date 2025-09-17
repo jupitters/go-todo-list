@@ -3,13 +3,13 @@ module github.com/jupitters/go-todo-list
 go 1.23.4
 
 require (
+	github.com/gofiber/fiber v1.14.6
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.17.4
 )
 
 require (
 	github.com/andybalholm/brotli v1.0.0 // indirect
-	github.com/gofiber/fiber v1.14.6 // indirect
 	github.com/gofiber/utils v0.0.10 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gorilla/schema v1.1.0 // indirect
