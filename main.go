@@ -44,9 +44,9 @@ func main() {
 	app := fiber.New()
 
 	app.Get("/api/todos", getTodos)
-	app.Post("/api/todos", createTodos)
-	app.Patch("/api/toods/:id", updateTodos)
-	app.Delete("/api/todos/:id", deleteTodos)
+	// app.Post("/api/todos", createTodos)
+	// app.Patch("/api/toods/:id", updateTodos)
+	// app.Delete("/api/todos/:id", deleteTodos)
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
