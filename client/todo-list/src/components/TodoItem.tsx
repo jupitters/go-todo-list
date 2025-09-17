@@ -7,23 +7,23 @@ import { BASE_URL } from "@/App";
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
     const queryClient = useQueryClient();
-    const {mutate: updateTodo, isPending:isUpdating} = useMutation({
-        mutationKey:["updateTodo"],
-        mutationFn: async () => {
-            if(todo.completed) return alert("Todo is already completed!")
-                try{
-                    const res = await fetch(BASE_URL + `/todos/${todo._id}`, {
-                        method: "PATCH",
-                    })
-                    const data = await res.json()
-                    if (!res.ok){
-                        throw new Error(data.error || "Something went wrong!")
-                    }
-                    return data
-            } catch (err) {
-                console.log(err)
-            }
-        }, 
+    const { mutate: updateTodo, isPending: isUpdating } = useMutation({
+		mutationKey: ["updateTodo"],
+		mutationFn: async () => {
+			if (todo.completed) return alert("Todo is already completed");
+			try {
+				const res = await fetch(BASE_URL + `/todos/${todo._id}`, {
+					method: "PATCH",
+				});
+				const data = await res.json();
+				if (!res.ok) {
+					throw new Error(data.error || "Something went wrong");
+				}
+				return data;
+			} catch (error) {
+				console.log(error);
+			}
+		},
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey:["todos"]})
         }
