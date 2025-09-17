@@ -48,8 +48,8 @@ func main() {
 
 	app.Get("/api/todos", getTodos)
 	app.Post("/api/todos", createTodo)
-	// app.Patch("/api/toods/:id", updateTodos)
-	// app.Delete("/api/todos/:id", deleteTodos)
+	app.Patch("/api/toods/:id", updateTodo)
+	// app.Delete("/api/todos/:id", deleteTodo)
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
