@@ -14,7 +14,7 @@ import (
 )
 
 type Todo struct {
-	ID        primitive.ObjectID `json:"_id" bson:"_id"`
+	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	Completed bool               `json:"completed"`
 	Body      string             `json:"body"`
 }
@@ -47,7 +47,7 @@ func main() {
 	app := fiber.New()
 
 	app.Get("/api/todos", getTodos)
-	// app.Post("/api/todos", createTodos)
+	app.Post("/api/todos", createTodo)
 	// app.Patch("/api/toods/:id", updateTodos)
 	// app.Delete("/api/todos/:id", deleteTodos)
 
