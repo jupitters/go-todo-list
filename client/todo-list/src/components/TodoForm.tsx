@@ -25,6 +25,9 @@ const TodoForm = () => {
                 if(!res.ok){
                     throw new Error(data.error || "Something went Wrong!")
                 }
+
+                setNewTodo("");
+                return data;
             }catch (err){
                 console.log(err)
             }
