@@ -44,7 +44,14 @@ func main() {
 	app := fiber.New()
 
 	app.Get("/api/todos", getTodos)
-	app.Post("/api/todos", postTodos)
+	app.Post("/api/todos", createTodos)
 	app.Patch("/api/toods/:id", updateTodos)
 	app.Delete("/api/todos/:id", deleteTodos)
+
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		log.Fatal("PORT not found!")
+	}
+
+	log.Fatal(app.Listen("0.0.0.0:" + PORT))
 }
