@@ -45,6 +45,6 @@ func main() {
 
 	app.Get("/api/todos", getTodos)
 	app.Post("/api/todos", postTodos)
-	app.Patch("/api/toods", updateTodos)
-	app.Delete("/api/todos", deleteTodos)
+	app.Patch("/api/toods/:id", updateTodos)
+	app.Delete("/api/todos/:id", deleteTodos)
 }
