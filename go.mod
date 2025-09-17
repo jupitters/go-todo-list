@@ -2,7 +2,10 @@ module github.com/jupitters/go-todo-list
 
 go 1.23.4
 
-require github.com/gofiber/fiber/v2 v2.52.9
+require (
+	github.com/gofiber/fiber/v2 v2.52.9
+	github.com/joho/godotenv v1.5.1
+)
 
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
